@@ -1,185 +1,574 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DroidGraph Discovering Android Malware by Analyzing Semantic Behavior | Tenny's World</title><meta name="keywords" content="Android Malware,论文"><meta name="author" content="Tenny"><meta name="copyright" content="Tenny"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="原文链接：https:&#x2F;&#x2F;ieeexplore.ieee.org&#x2F;document&#x2F;6997523  介绍​    由于智能手机的普及，手机恶意软件的数量急剧增加。由于智能手机被认定为私人财产，人们在没有意识到手机恶意软件威胁的情况下，储存了敏感数据。这一事实给了攻击者以智能手机为目标的巨大动机，而且事实上，移动恶意软件现在非常猖獗，特别是在最流行的移动平台Android上。 ​    为了应对">
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
+  <link rel="icon" href="/img/favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#252d38">
+  <meta name="description" content="">
+  <meta name="author" content="Tenny">
+  <meta name="keywords" content="">
+  <meta name="description" content="原文链接：https:&#x2F;&#x2F;ieeexplore.ieee.org&#x2F;document&#x2F;6997523  介绍 ​ 由于智能手机的普及，手机恶意软件的数量急剧增加。由于智能手机被认定为私人财产，人们在没有意识到手机恶意软件威胁的情况下，储存了敏感数据。这一事实给了攻击者以智能手机为目标的巨大动机，而且事实上，移动恶意软件现在非常猖獗，特别是在最流行的移动平台Android上。 ​ 为了应对">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DroidGraph Discovering Android Malware by Analyzing Semantic Behavior">
 <meta property="og:url" content="https://tennybupt.github.io/2021/11/13/droidgraph/index.html">
 <meta property="og:site_name" content="Tenny&#39;s World">
-<meta property="og:description" content="原文链接：https:&#x2F;&#x2F;ieeexplore.ieee.org&#x2F;document&#x2F;6997523  介绍​    由于智能手机的普及，手机恶意软件的数量急剧增加。由于智能手机被认定为私人财产，人们在没有意识到手机恶意软件威胁的情况下，储存了敏感数据。这一事实给了攻击者以智能手机为目标的巨大动机，而且事实上，移动恶意软件现在非常猖獗，特别是在最流行的移动平台Android上。 ​    为了应对">
+<meta property="og:description" content="原文链接：https:&#x2F;&#x2F;ieeexplore.ieee.org&#x2F;document&#x2F;6997523  介绍 ​ 由于智能手机的普及，手机恶意软件的数量急剧增加。由于智能手机被认定为私人财产，人们在没有意识到手机恶意软件威胁的情况下，储存了敏感数据。这一事实给了攻击者以智能手机为目标的巨大动机，而且事实上，移动恶意软件现在非常猖獗，特别是在最流行的移动平台Android上。 ​ 为了应对">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg">
+<meta property="og:image" content="https://tennybupt.github.io/2021/11/13/droidgraph/fig1.png">
+<meta property="og:image" content="https://tennybupt.github.io/2021/11/13/droidgraph/fig2.png">
 <meta property="article:published_time" content="2021-11-13T13:03:32.923Z">
 <meta property="article:modified_time" content="2021-11-15T13:34:31.467Z">
 <meta property="article:author" content="Tenny">
 <meta property="article:tag" content="Android Malware">
 <meta property="article:tag" content="论文">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg"><link rel="shortcut icon" href="/img/1.jpeg"><link rel="canonical" href="https://tennybupt.github.io/2021/11/13/droidgraph/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
-  root: '/',
-  algolia: undefined,
-  localSearch: undefined,
-  translate: undefined,
-  noticeOutdate: undefined,
-  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  relativeDate: {
-    homepage: false,
-    post: false
-  },
-  runtime: '',
-  date_suffix: {
-    just: '刚刚',
-    min: '分钟前',
-    hour: '小时前',
-    day: '天前',
-    month: '个月前'
-  },
-  copyright: undefined,
-  lightbox: 'fancybox',
-  Snackbar: undefined,
-  source: {
-    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
-    justifiedGallery: {
-      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
-      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
-    },
-    fancybox: {
-      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
-      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
-    }
-  },
-  isPhotoFigcaption: false,
-  islazyload: false,
-  isanchor: false
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: 'DroidGraph Discovering Android Malware by Analyzing Semantic Behavior',
-  isPost: true,
-  isHome: false,
-  isHighlightShrink: false,
-  isToc: true,
-  postUpdate: '2021-11-15 21:34:31'
-}</script><noscript><style type="text/css">
-  #nav {
-    opacity: 1
-  }
-  .justified-gallery img {
-    opacity: 1
-  }
-
-  #recent-posts time,
-  #post-meta time {
-    display: inline !important
-  }
-</style></noscript><script>(win=>{
-    win.saveToLocal = {
-      set: function setWithExpiry(key, value, ttl) {
-        if (ttl === 0) return
-        const now = new Date()
-        const expiryDay = ttl * 86400000
-        const item = {
-          value: value,
-          expiry: now.getTime() + expiryDay,
-        }
-        localStorage.setItem(key, JSON.stringify(item))
-      },
-
-      get: function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
-
-        if (!itemStr) {
-          return undefined
-        }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
-
-        if (now.getTime() > item.expiry) {
-          localStorage.removeItem(key)
-          return undefined
-        }
-        return item.value
-      }
-    }
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://tennybupt.github.io/2021/11/13/droidgraph/fig1.png">
   
-    win.getScript = url => new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = url
-      script.async = true
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    })
+  <title>DroidGraph Discovering Android Malware by Analyzing Semantic Behavior - Tenny&#39;s World</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
   
-      win.activateDarkMode = function () {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = function () {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
     
-          if (t === 'dark') activateDarkMode()
-          else if (t === 'light') activateLightMode()
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/css/font.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"tennybupt.github.io","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Tenny's World" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 60vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Tenny&#39;s World</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/banner/droidgraph.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="DroidGraph Discovering Android Malware by Analyzing Semantic Behavior">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-11-13 21:03" pubdate>
+        2021年11月13日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.9k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      9 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
     
-    const detectApple = () => {
-      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-        document.documentElement.classList.add('apple')
-      }
-    }
-    detectApple()
-    })(window)</script><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Tenny's World" type="application/atom+xml">
-</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Tenny's World</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">DroidGraph Discovering Android Malware by Analyzing Semantic Behavior</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-13T13:03:32.923Z" title="发表于 2021-11-13 21:03:32">2021-11-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-11-15T13:34:31.467Z" title="更新于 2021-11-15 21:34:31">2021-11-15</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="DroidGraph Discovering Android Malware by Analyzing Semantic Behavior"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><blockquote>
-<p>原文链接：<a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/document/6997523">https://ieeexplore.ieee.org/document/6997523</a></p>
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">DroidGraph Discovering Android Malware by Analyzing Semantic Behavior</h1>
+            
+            <div class="markdown-body">
+              <blockquote>
+<p>原文链接：https://ieeexplore.ieee.org/document/6997523</p>
 </blockquote>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>​    由于智能手机的普及，手机恶意软件的数量急剧增加。由于智能手机被认定为私人财产，人们在没有意识到手机恶意软件威胁的情况下，储存了敏感数据。这一事实给了攻击者以智能手机为目标的巨大动机，而且事实上，移动恶意软件现在非常猖獗，特别是在最流行的移动平台Android上。</p>
-<p>​    为了应对日益增长的Android恶意软件的威胁，已经提出了许多对策，但没有一个能够成为根本的解决方案。应对的主要困难是Android恶意软件变种的快速增长。根据赛门铁克的报告，从2012年到2013年，每个恶意软件家族的平均变异数量增加了50%以上，而同一时期的恶意软件家族数量记录了45%的下降。</p>
-<p>​    这一趋势的主要原因是，<strong>Android恶意软件不断发展</strong>，使用了<strong>代码混淆</strong>或<strong>垃圾代码插入</strong>等逃避技术。攻击者使用该技术可以轻松构建新的恶意软件变体，这些变体使得现有的<em>基于二进制签名或已授予的权限、类名或包名等特征的移动恶意软件解决方案</em>，无法检测当前的Android恶意软件。</p>
-<p>​    基于此，我们提出了一种基于语义行为分析的Android恶意软件检测机制<strong>DroidGraph</strong>。<strong>DroidGraph</strong>处理的是<strong>API调用</strong>，因为在Android平台中，<strong>API调用</strong>对于Android操作来说占据着重要的位置，而且每个<strong>API调用</strong>都有不同的语义含义。因此，分析Android  API调用可以让我们更容易地理解Android恶意软件的企图。我们将从APK文件中提取的<strong>API调用</strong>转换为<strong>层次行为图</strong>。这些图通过分解为<strong>APK层次结构</strong>，分别从<em>每个方法、类、包和应用程序级别的角度</em>表示语义意义。这种分层方法使我们避免了对重新包装的恶意软件的错误警报。在抽取行为图之后，我们选择图作为语义签名来检测未知的恶意软件变体，它们代表了恶意软件族的常见行为。</p>
-<p>​    为了评估<strong>DroidGraph</strong>，我们使用了现实世界的数据，包括从<strong>Contagio手机网站</strong>收集的260个Android恶意软件，以及从谷歌游戏商店和其他Android市场收集的3623个良性应用程序。在一个实验中，DroidGraph仅使用<strong>40个语义特征</strong>就能达到87%的检测准确率。</p>
-<h2 id="安卓恶意软件检测"><a href="#安卓恶意软件检测" class="headerlink" title="安卓恶意软件检测"></a>安卓恶意软件检测</h2><p>​    为了设计一个有效的缓解方案，首先我们需要对Android恶意软件及其现象有一个深刻的理解。在本节中，我们将描述近期Android恶意软件的两个主要现象，即<strong>重新包装和变质</strong>。</p>
-<p>​    Android恶意软件用于应用重新包装的目的，以<strong>方便创建和分发</strong>。攻击者通过简单地将攻击模块添加到一个众所周知的应用程序中来构建诱饵应用程序，并将其上传到公开的Android市场，以引诱人们安装他们的传统应用程序。这意味着，当我们分析这种重新包装的恶意软件时，我们应该能够识别出哪个部分是攻击者的财产。</p>
-<p>​    另一种需要考虑的现象是<strong>变质作用</strong>。众所周知，目前的Android恶意软件利用变形来避免现有的反移动恶意软件解决方案。为了完成这种变形，攻击者通常采用几种技术，如<strong>代码混淆、垃圾代码插入和API替换</strong>。因此，仅考虑Android恶意软件的外观可能会导致严重的误检。为此，我们需要分析Android恶意软件的语义，而不是它的外观。</p>
-<h2 id="DroidGraph"><a href="#DroidGraph" class="headerlink" title="DroidGraph"></a>DroidGraph</h2><p><img src="/2021/11/13/droidgraph/droidgraph%5Cfig1.png" alt="图1"></p>
+<h2 id="介绍">介绍</h2>
+<p>​ 由于智能手机的普及，手机恶意软件的数量急剧增加。由于智能手机被认定为私人财产，人们在没有意识到手机恶意软件威胁的情况下，储存了敏感数据。这一事实给了攻击者以智能手机为目标的巨大动机，而且事实上，移动恶意软件现在非常猖獗，特别是在最流行的移动平台Android上。</p>
+<p>​ 为了应对日益增长的Android恶意软件的威胁，已经提出了许多对策，但没有一个能够成为根本的解决方案。应对的主要困难是Android恶意软件变种的快速增长。根据赛门铁克的报告，从2012年到2013年，每个恶意软件家族的平均变异数量增加了50%以上，而同一时期的恶意软件家族数量记录了45%的下降。</p>
+<p>​ 这一趋势的主要原因是，<strong>Android恶意软件不断发展</strong>，使用了<strong>代码混淆</strong>或<strong>垃圾代码插入</strong>等逃避技术。攻击者使用该技术可以轻松构建新的恶意软件变体，这些变体使得现有的<em>基于二进制签名或已授予的权限、类名或包名等特征的移动恶意软件解决方案</em>，无法检测当前的Android恶意软件。</p>
+<p>​ 基于此，我们提出了一种基于语义行为分析的Android恶意软件检测机制<strong>DroidGraph</strong>。<strong>DroidGraph</strong>处理的是<strong>API调用</strong>，因为在Android平台中，<strong>API调用</strong>对于Android操作来说占据着重要的位置，而且每个<strong>API调用</strong>都有不同的语义含义。因此，分析Android API调用可以让我们更容易地理解Android恶意软件的企图。我们将从APK文件中提取的<strong>API调用</strong>转换为<strong>层次行为图</strong>。这些图通过分解为<strong>APK层次结构</strong>，分别从<em>每个方法、类、包和应用程序级别的角度</em>表示语义意义。这种分层方法使我们避免了对重新包装的恶意软件的错误警报。在抽取行为图之后，我们选择图作为语义签名来检测未知的恶意软件变体，它们代表了恶意软件族的常见行为。</p>
+<p>​ 为了评估<strong>DroidGraph</strong>，我们使用了现实世界的数据，包括从<strong>Contagio手机网站</strong>收集的260个Android恶意软件，以及从谷歌游戏商店和其他Android市场收集的3623个良性应用程序。在一个实验中，DroidGraph仅使用<strong>40个语义特征</strong>就能达到87%的检测准确率。</p>
+<h2 id="安卓恶意软件检测">安卓恶意软件检测</h2>
+<p>​ 为了设计一个有效的缓解方案，首先我们需要对Android恶意软件及其现象有一个深刻的理解。在本节中，我们将描述近期Android恶意软件的两个主要现象，即<strong>重新包装和变质</strong>。</p>
+<p>​ Android恶意软件用于应用重新包装的目的，以<strong>方便创建和分发</strong>。攻击者通过简单地将攻击模块添加到一个众所周知的应用程序中来构建诱饵应用程序，并将其上传到公开的Android市场，以引诱人们安装他们的传统应用程序。这意味着，当我们分析这种重新包装的恶意软件时，我们应该能够识别出哪个部分是攻击者的财产。</p>
+<p>​ 另一种需要考虑的现象是<strong>变质作用</strong>。众所周知，目前的Android恶意软件利用变形来避免现有的反移动恶意软件解决方案。为了完成这种变形，攻击者通常采用几种技术，如<strong>代码混淆、垃圾代码插入和API替换</strong>。因此，仅考虑Android恶意软件的外观可能会导致严重的误检。为此，我们需要分析Android恶意软件的语义，而不是它的外观。</p>
+<h2 id="droidgraph">DroidGraph</h2>
+<p><img src="/2021/11/13/droidgraph/fig1.png" srcset="/img/loading.gif" lazyload alt="图1"></p>
 <p><strong>DroidGraph</strong>是一个利用语义特征检测Android恶意软件的系统。图1(上)描述了DroidGraph如何提取Android恶意软件的语义。</p>
-<p>​    在第一步，我们使用众所周知的<strong>重新打包工具APKtool从APK文件中提取smali代码</strong>。注意，smali代码形成了一种语法上接近纯源代码的解释性语言，因此构造原始代码的控制流是很有用的。</p>
-<p>​    在第二步中，我们按照APK层次结构为每个smali代码构建控制流的API调用图。API调用图可以表示为一个有向图$G = (V, E)$，其中$V$是API调用的集合，$E$是<strong>API调用的调用关系集</strong>，$E={(v_i, v_j)|v_i,  v_j∈V}$，其中vi表示调用者，$v_j,v_i$表示<strong>被调用者</strong>。API调用图还表示每个方法、类和包的行为。</p>
-<p>​    <strong>DroidGraph</strong>的主要新颖之处在于我们<strong>如何使用API调用来表示Android恶意软件的语义</strong>。由于为Android开发者定义了成千上万的API调用，它带来了巨大的图表。分析包含数千个API节点的原始API调用图并不是一种有效的方法，它可能不允许我们清楚地理解图的语义。此外，考虑到我们需要比较图来判断Android恶意软件的情况，图的同构通常被称为np完全问题。</p>
-<p>​    在此驱动下，我们最终将API调用图转换为语义图，每个API调用根据其语义被替换为语义节点。每个API调用被划分为<strong>34个对象</strong>，其中的对象是<strong>进程、网络、帐户等</strong>。这些对象再次被分为<strong>4种行为</strong>，如<strong>打开、读取、写入和关闭</strong>。因此，<strong>数千个API调用</strong>被转换为<strong>总共136个相同的语义节点</strong>。我们把这种<strong>转换称为语义抽象</strong>。</p>
-<p>​    图1（底部）展示了一个<strong>抽象的简单</strong>示例，其中包含一个<strong>试图窃取SMS消息的真正恶意活动</strong>。通过语义抽象步骤，最终得到每个APK的语义图。</p>
-<p>​    语义图为我们提供了以下三个好处。</p>
-<ol>
+<p>​ 在第一步，我们使用众所周知的<strong>重新打包工具APKtool从APK文件中提取smali代码</strong>。注意，smali代码形成了一种语法上接近纯源代码的解释性语言，因此构造原始代码的控制流是很有用的。</p>
+<p>​ 在第二步中，我们按照APK层次结构为每个smali代码构建控制流的API调用图。API调用图可以表示为一个有向图<span class="math inline">\(G = (V, E)\)</span>，其中<span class="math inline">\(V\)</span>是API调用的集合，<span class="math inline">\(E\)</span>是<strong>API调用的调用关系集</strong>，<span class="math inline">\(E={(v_i, v_j)|v_i, v_j∈V}\)</span>，其中vi表示调用者，<span class="math inline">\(v_j,v_i\)</span>表示<strong>被调用者</strong>。API调用图还表示每个方法、类和包的行为。</p>
+<p>​ <strong>DroidGraph</strong>的主要新颖之处在于我们<strong>如何使用API调用来表示Android恶意软件的语义</strong>。由于为Android开发者定义了成千上万的API调用，它带来了巨大的图表。分析包含数千个API节点的原始API调用图并不是一种有效的方法，它可能不允许我们清楚地理解图的语义。此外，考虑到我们需要比较图来判断Android恶意软件的情况，图的同构通常被称为np完全问题。</p>
+<p>​ 在此驱动下，我们最终将API调用图转换为语义图，每个API调用根据其语义被替换为语义节点。每个API调用被划分为<strong>34个对象</strong>，其中的对象是<strong>进程、网络、帐户等</strong>。这些对象再次被分为<strong>4种行为</strong>，如<strong>打开、读取、写入和关闭</strong>。因此，<strong>数千个API调用</strong>被转换为<strong>总共136个相同的语义节点</strong>。我们把这种<strong>转换称为语义抽象</strong>。</p>
+<p>​ 图1（底部）展示了一个<strong>抽象的简单</strong>示例，其中包含一个<strong>试图窃取SMS消息的真正恶意活动</strong>。通过语义抽象步骤，最终得到每个APK的语义图。</p>
+<p>​ 语义图为我们提供了以下三个好处。</p>
+<ol type="1">
 <li><strong>抗重新打包</strong>：语义图在每个层次上都有表示，因此，即使攻击者使用重新打包，DroidGraph也会确定哪些模块或类含有恶意代码。</li>
 <li><strong>抗混淆</strong>：语义图考虑API调用的语义，因此，如果攻击者试图替换API调用，或放置一些垃圾代码，甚至混淆代码本身，DroidGraph提取相同的语义图。</li>
 <li><strong>时间优势</strong>：DroidGraph将图比较开销降低到一个常数时间。与具有多项式时间开销的朴素调用图相比，这在实用性方面是一个很大的优势。</li>
 </ol>
-<p>​    对于Android恶意软件的检测，DroidGraph需要从现有的已知Android恶意软件中提取语义特征。为此，我们采用<strong>图挖掘方法</strong>，从只包含<strong>Android恶意软件家族中常见的恶意语义图而非普通应用程序的图池中选择签名图</strong>。DroidGraph使用特征图来判断测试应用程序是否包含恶意语义行为。</p>
-<h2 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h2><p>​    为了评估<strong>DroidGraph</strong>的性能，我们对真实的Android应用进行了实验，其中包括260个来自Contagio手机网站的Android恶意软件，以及3623个来自第三方Android  market和谷歌play  store的良性应用。</p>
-<p><img src="/2021/11/13/droidgraph/droidgraph%5Cfig2.png" alt="图2"></p>
-<p>​    在实验中，我们从良性应用中得到16080张图，从Android恶意样本中得到1863张图。通过应用图挖掘，最终得到<strong>335个只出现在Android恶意样本中的唯一图</strong>。图2为Android恶意软件的图覆盖率和累计检测率。单个图的最大覆盖率为85，这意味着单个图可以检测1/3的恶意样本。335个语义行为图的检测准确率可达87%，而仅用40个语义行为图就能得到相同的检测结果。良性应用没有假阳性。</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>​    DroidGraph是对付复杂的Android恶意软件的有效手段。为了进一步的研究，我们计划在不同层次上通过图匹配来提高检测的准确性，并分析找出最有效的语义特征和策略。</p>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Tenny</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://tennybupt.github.io/2021/11/13/droidgraph/">https://tennybupt.github.io/2021/11/13/droidgraph/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://tennybupt.github.io" target="_blank">Tenny's World</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Android-Malware/">Android Malware</a><a class="post-meta__tags" href="/tags/%E8%AE%BA%E6%96%87/">论文</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Tenny</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">1</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">2</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/TennyBUPT" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:1753630763@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E5%8D%93%E6%81%B6%E6%84%8F%E8%BD%AF%E4%BB%B6%E6%A3%80%E6%B5%8B"><span class="toc-number">2.</span> <span class="toc-text">安卓恶意软件检测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DroidGraph"><span class="toc-number">3.</span> <span class="toc-text">DroidGraph</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E6%9E%9C"><span class="toc-number">4.</span> <span class="toc-text">实验结果</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number"></span> <span class="toc-text">总结</span></a></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/11/13/droidgraph/" title="DroidGraph Discovering Android Malware by Analyzing Semantic Behavior"><img src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/img/default.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="DroidGraph Discovering Android Malware by Analyzing Semantic Behavior"/></a><div class="content"><a class="title" href="/2021/11/13/droidgraph/" title="DroidGraph Discovering Android Malware by Analyzing Semantic Behavior">DroidGraph Discovering Android Malware by Analyzing Semantic Behavior</a><time datetime="2021-11-13T13:03:32.923Z" title="发表于 2021-11-13 21:03:32">2021-11-13</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By Tenny</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
-POWERMODE.shake = true;
-POWERMODE.mobile = false;
-document.body.addEventListener('input', POWERMODE);
-</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+<p>​ 对于Android恶意软件的检测，DroidGraph需要从现有的已知Android恶意软件中提取语义特征。为此，我们采用<strong>图挖掘方法</strong>，从只包含<strong>Android恶意软件家族中常见的恶意语义图而非普通应用程序的图池中选择签名图</strong>。DroidGraph使用特征图来判断测试应用程序是否包含恶意语义行为。</p>
+<h2 id="实验结果">实验结果</h2>
+<p>​ 为了评估<strong>DroidGraph</strong>的性能，我们对真实的Android应用进行了实验，其中包括260个来自Contagio手机网站的Android恶意软件，以及3623个来自第三方Android market和谷歌play store的良性应用。</p>
+<p><img src="/2021/11/13/droidgraph/fig2.png" srcset="/img/loading.gif" lazyload alt="图2"></p>
+<p>​ 在实验中，我们从良性应用中得到16080张图，从Android恶意样本中得到1863张图。通过应用图挖掘，最终得到<strong>335个只出现在Android恶意样本中的唯一图</strong>。图2为Android恶意软件的图覆盖率和累计检测率。单个图的最大覆盖率为85，这意味着单个图可以检测1/3的恶意样本。335个语义行为图的检测准确率可达87%，而仅用40个语义行为图就能得到相同的检测结果。良性应用没有假阳性。</p>
+<h1 id="总结">总结</h1>
+<p>​ DroidGraph是对付复杂的Android恶意软件的有效手段。为了进一步的研究，我们计划在不同层次上通过图匹配来提高检测的准确性，并分析找出最有效的语义特征和策略。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Android-Malware/">Android Malware</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%AE%BA%E6%96%87/">论文</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="gitalk-container"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', function() {
+        var options = Object.assign(
+          {"clientID":"60ac9b2255ef5970b408","clientSecret":"e9bb8e314f7c5f071af9b147335028d648aa9f92","repo":"gitalk_comments","owner":"TennyBUPT","admin":["TennyBUPT"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
+          {
+            id: 'a5744c9ca57ae4db24f153dc3598ff0b'
+          }
+        )
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js" ></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({"theme":"default"});
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
