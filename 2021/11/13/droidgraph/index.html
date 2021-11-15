@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://tennybupt.github.io/2021/11/13/droidgraph/fig1.png">
 <meta property="og:image" content="https://tennybupt.github.io/2021/11/13/droidgraph/fig2.png">
 <meta property="article:published_time" content="2021-11-13T13:03:32.923Z">
-<meta property="article:modified_time" content="2021-11-15T11:00:11.542Z">
+<meta property="article:modified_time" content="2021-11-15T13:34:31.467Z">
 <meta property="article:author" content="Tenny">
 <meta property="article:tag" content="Android Malware">
 <meta property="article:tag" content="论文">
@@ -175,7 +175,7 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
+         style="background: url('/img/banner/droidgraph.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -256,9 +256,7 @@
 <p>​ Android恶意软件用于应用重新包装的目的，以<strong>方便创建和分发</strong>。攻击者通过简单地将攻击模块添加到一个众所周知的应用程序中来构建诱饵应用程序，并将其上传到公开的Android市场，以引诱人们安装他们的传统应用程序。这意味着，当我们分析这种重新包装的恶意软件时，我们应该能够识别出哪个部分是攻击者的财产。</p>
 <p>​ 另一种需要考虑的现象是<strong>变质作用</strong>。众所周知，目前的Android恶意软件利用变形来避免现有的反移动恶意软件解决方案。为了完成这种变形，攻击者通常采用几种技术，如<strong>代码混淆、垃圾代码插入和API替换</strong>。因此，仅考虑Android恶意软件的外观可能会导致严重的误检。为此，我们需要分析Android恶意软件的语义，而不是它的外观。</p>
 <h2 id="droidgraph">DroidGraph</h2>
-<figure>
-<img src="/2021/11/13/droidgraph/fig1.png" srcset="/img/loading.gif" lazyload alt="图1"><figcaption aria-hidden="true">图1</figcaption>
-</figure>
+<p><img src="/2021/11/13/droidgraph/fig1.png" srcset="/img/loading.gif" lazyload alt="图1"></p>
 <p><strong>DroidGraph</strong>是一个利用语义特征检测Android恶意软件的系统。图1(上)描述了DroidGraph如何提取Android恶意软件的语义。</p>
 <p>​ 在第一步，我们使用众所周知的<strong>重新打包工具APKtool从APK文件中提取smali代码</strong>。注意，smali代码形成了一种语法上接近纯源代码的解释性语言，因此构造原始代码的控制流是很有用的。</p>
 <p>​ 在第二步中，我们按照APK层次结构为每个smali代码构建控制流的API调用图。API调用图可以表示为一个有向图<span class="math inline">\(G = (V, E)\)</span>，其中<span class="math inline">\(V\)</span>是API调用的集合，<span class="math inline">\(E\)</span>是<strong>API调用的调用关系集</strong>，<span class="math inline">\(E={(v_i, v_j)|v_i, v_j∈V}\)</span>，其中vi表示调用者，<span class="math inline">\(v_j,v_i\)</span>表示<strong>被调用者</strong>。API调用图还表示每个方法、类和包的行为。</p>
@@ -274,9 +272,7 @@
 <p>​ 对于Android恶意软件的检测，DroidGraph需要从现有的已知Android恶意软件中提取语义特征。为此，我们采用<strong>图挖掘方法</strong>，从只包含<strong>Android恶意软件家族中常见的恶意语义图而非普通应用程序的图池中选择签名图</strong>。DroidGraph使用特征图来判断测试应用程序是否包含恶意语义行为。</p>
 <h2 id="实验结果">实验结果</h2>
 <p>​ 为了评估<strong>DroidGraph</strong>的性能，我们对真实的Android应用进行了实验，其中包括260个来自Contagio手机网站的Android恶意软件，以及3623个来自第三方Android market和谷歌play store的良性应用。</p>
-<figure>
-<img src="/2021/11/13/droidgraph/fig2.png" srcset="/img/loading.gif" lazyload alt="图2"><figcaption aria-hidden="true">图2</figcaption>
-</figure>
+<p><img src="/2021/11/13/droidgraph/fig2.png" srcset="/img/loading.gif" lazyload alt="图2"></p>
 <p>​ 在实验中，我们从良性应用中得到16080张图，从Android恶意样本中得到1863张图。通过应用图挖掘，最终得到<strong>335个只出现在Android恶意样本中的唯一图</strong>。图2为Android恶意软件的图覆盖率和累计检测率。单个图的最大覆盖率为85，这意味着单个图可以检测1/3的恶意样本。335个语义行为图的检测准确率可达87%，而仅用40个语义行为图就能得到相同的检测结果。良性应用没有假阳性。</p>
 <h1 id="总结">总结</h1>
 <p>​ DroidGraph是对付复杂的Android恶意软件的有效手段。为了进一步的研究，我们计划在不同层次上通过图匹配来提高检测的准确性，并分析找出最有效的语义特征和策略。</p>
