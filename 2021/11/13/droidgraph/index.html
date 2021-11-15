@@ -312,21 +312,19 @@
                   
                 
                 
-  <div id="twikoo"></div>
+  <div id="gitalk-container"></div>
   <script type="text/javascript">
-    Fluid.utils.loadComments('#comments', function() {
-      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/twikoo@1/dist/twikoo.all.min.js', function() {
+    Fluid.utils.loadComments('#gitalk-container', function() {
+      Fluid.utils.createCssLink('/css/gitalk.css')
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', function() {
         var options = Object.assign(
-          {"envId":"commit-7gz8iurica304144","region":"ap-shanghai"},
+          {"clientID":"60ac9b2255ef5970b408","clientSecret":"e9bb8e314f7c5f071af9b147335028d648aa9f92","repo":"gitalk_comments","owner":"TennyBUPT","admin":["name"],"language":"zh-CN","labels":["Gitalk"],"perPage":10,"pagerDirection":"last","distractionFreeMode":false,"createIssueManually":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token"},
           {
-            el: '#twikoo',
-            path: '',
-            onCommentLoaded: function() {
-              Fluid.plugins.initFancyBox('#twikoo .tk-content img:not(.tk-owo-emotion)');
-            }
+            id: 'a5744c9ca57ae4db24f153dc3598ff0b'
           }
         )
-        twikoo.init(options)
+        var gitalk = new Gitalk(options);
+        gitalk.render('gitalk-container');
       });
     });
   </script>
