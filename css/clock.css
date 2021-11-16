@@ -1,0 +1,71 @@
+ #aside-content .sticky_layout {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 20px;
+    -webkit-transition: top .3s;
+    -moz-transition: top .3s;
+    -o-transition: top .3s;
+    -ms-transition: top .3s;
+    transition: top .3s;
+}
+
+#aside-content .card-widget {
+    position: relative;
+    overflow: hidden;
+    margin-top: 1rem;
+    padding: 1rem 1.2rem;
+    border-radius: 8px;
+    background: var(--card-bg);
+    -webkit-box-shadow: var(--card-box-shadow);
+    box-shadow: var(--card-box-shadow);
+    -webkit-transition: box-shadow .3s;
+    -moz-transition: box-shadow .3s;
+    -o-transition: box-shadow .3s;
+    -ms-transition: box-shadow .3s;
+    transition: box-shadow .3s;
+}
+
+.card-clock {
+    padding: 0!important;
+}
+
+.card-background {
+    height: 153px;
+    margin: 15px;
+    border-radius: 8px;
+    background-color: #ececec;
+    box-shadow: inset 3px 3px 18px 0 rgb(50 50 50 / 40%);
+    z-index: 2;
+}
+
+#hexo_electric_clock {
+    padding: 20px;
+}
+
+#aside-board .aside-sticky-layout {
+    width: 250px;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 20px;
+    -webkit-transition: top .3s;
+    -moz-transition: top .3s;
+    -o-transition: top .3s;
+    -ms-transition: top .3s;
+    transition: top .3s;
+}
+
+#aside-content {
+    padding-left: 15px;
+    width: 25%;
+}
+
+#aside-board {
+    position: relative;
+    margin-top: -2rem;
+    background-color: var(--board-bg-color);
+    transition: background-color 0.2s ease-in-out;
+    border-radius: 0.5rem;
+    z-index: 3;
+    -webkit-box-shadow: 0 12px 15px 0 rgb(0 0 0 / 24%), 0 17px 50px 0 rgb(0 0 0 / 19%);
+    box-shadow: 0 12px 15px 0 rgb(0 0 0 / 24%), 0 17px 50px 0 rgb(0 0 0 / 19%);
+}
