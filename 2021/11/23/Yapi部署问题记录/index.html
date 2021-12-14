@@ -17,12 +17,12 @@
   <meta name="description" content="Tenny的博客">
   <meta name="author" content="Tenny">
   <meta name="keywords" content="">
-  <meta name="description" content="需求 Yapi主要负责对项目的Api文档记录和测试  由于项目中主要是Api的开发，所以在内网搭建Api管理平台成为较大的需求  选择Yapi是由于用的人较多和部署比较方便（如果没有Bug）   Yapi内外部署部署前环境描述1234567OS: Windows 10&gt; node --versionv16.13.0&gt; npm --version8.1.0    1、简单部署按照官方文档">
+  <meta name="description" content="需求  Yapi主要负责对项目的Api文档记录和测试 由于项目中主要是Api的开发，所以在内网搭建Api管理平台成为较大的需求 选择Yapi是由于用的人较多和部署比较方便（如果没有Bug）  Yapi内外部署 部署前环境描述 1234567OS: Windows 10&gt; node --versionv16.13.0&gt; npm --version8.1.0 1、简单部署">
 <meta property="og:type" content="article">
 <meta property="og:title" content="项目记录 —— Yapi 部署问题记录">
 <meta property="og:url" content="https://tennybupt.github.io/2021/11/23/Yapi%E9%83%A8%E7%BD%B2%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/index.html">
 <meta property="og:site_name" content="Tenny&#39;s World">
-<meta property="og:description" content="需求 Yapi主要负责对项目的Api文档记录和测试  由于项目中主要是Api的开发，所以在内网搭建Api管理平台成为较大的需求  选择Yapi是由于用的人较多和部署比较方便（如果没有Bug）   Yapi内外部署部署前环境描述1234567OS: Windows 10&gt; node --versionv16.13.0&gt; npm --version8.1.0    1、简单部署按照官方文档">
+<meta property="og:description" content="需求  Yapi主要负责对项目的Api文档记录和测试 由于项目中主要是Api的开发，所以在内网搭建Api管理平台成为较大的需求 选择Yapi是由于用的人较多和部署比较方便（如果没有Bug）  Yapi内外部署 部署前环境描述 1234567OS: Windows 10&gt; node --versionv16.13.0&gt; npm --version8.1.0 1、简单部署">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://tennybupt.github.io/2021/11/23/Yapi%E9%83%A8%E7%BD%B2%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/config_page.png">
 <meta property="og:image" content="https://tennybupt.github.io/2021/11/23/Yapi%E9%83%A8%E7%BD%B2%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/waiting.png">
@@ -251,71 +251,58 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：5 分钟前
+                  本文最后更新于：21 天前
                 
               </p>
             
             <div class="markdown-body">
-              <h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><ul>
-<li><p>Yapi主要负责对项目的Api文档记录和测试</p>
-</li>
-<li><p>由于项目中主要是Api的开发，所以在内网搭建Api管理平台成为较大的需求</p>
-</li>
-<li><p>选择Yapi是由于用的人较多和部署比较方便（如果没有Bug）</p>
-</li>
+              <h2 id="需求">需求</h2>
+<ul>
+<li><p>Yapi主要负责对项目的Api文档记录和测试</p></li>
+<li><p>由于项目中主要是Api的开发，所以在内网搭建Api管理平台成为较大的需求</p></li>
+<li><p>选择Yapi是由于用的人较多和部署比较方便（如果没有Bug）</p></li>
 </ul>
-<h2 id="Yapi内外部署"><a href="#Yapi内外部署" class="headerlink" title="Yapi内外部署"></a>Yapi内外部署</h2><h3 id="部署前环境描述"><a href="#部署前环境描述" class="headerlink" title="部署前环境描述"></a>部署前环境描述</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">OS: Windows 10<br><span class="hljs-meta"></span><br><span class="hljs-meta">&gt;</span><span class="bash"> node --version</span><br>v16.13.0<br><span class="hljs-meta"></span><br><span class="hljs-meta">&gt;</span><span class="bash"> npm --version</span><br>8.1.0<br></code></pre></td></tr></table></figure>
-
-
-
-<h3 id="1、简单部署"><a href="#1、简单部署" class="headerlink" title="1、简单部署"></a>1、简单部署</h3><p>按照官方文档 <a target="_blank" rel="noopener" href="http://yapi.smart-xwork.cn/doc/devops/index.html">内网部署 (smart-xwork.cn)</a></p>
+<h2 id="yapi内外部署">Yapi内外部署</h2>
+<h3 id="部署前环境描述">部署前环境描述</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">OS: Windows 10<br><span class="hljs-meta"></span><br><span class="hljs-meta">&gt;</span><span class="bash"> node --version</span><br>v16.13.0<br><span class="hljs-meta"></span><br><span class="hljs-meta">&gt;</span><span class="bash"> npm --version</span><br>8.1.0<br></code></pre></td></tr></table></figure>
+<h3 id="简单部署">1、简单部署</h3>
+<p>按照官方文档 <a target="_blank" rel="noopener" href="http://yapi.smart-xwork.cn/doc/devops/index.html">内网部署 (smart-xwork.cn)</a></p>
 <p>一开始选择了懒人法也是推荐法，可视化部署</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">npm install -g yapi-cli --registry https://registry.npm.taobao.org<br>yapi server<br></code></pre></td></tr></table></figure>
-
 <p>一开始安装到yapi服务启动都是没有问题的</p>
-<p>按照提醒  <code>在浏览器打开 http://0.0.0.0:9090 访问</code></p>
+<p>按照提醒 <code>在浏览器打开 http://0.0.0.0:9090 访问</code></p>
 <p>即通过浏览器访问 <code>http://127.0.0.1:9090/</code></p>
 <p>打开界面，提交表单初始化平台部署</p>
-<img src="/2021/11/23/Yapi%E9%83%A8%E7%BD%B2%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/config_page.png" srcset="/img/loading.gif" lazyload alt="配置界面" style="zoom:67%;">
-
-<img src="/2021/11/23/Yapi%E9%83%A8%E7%BD%B2%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/waiting.png" srcset="/img/loading.gif" lazyload alt="提交结果" style="zoom:67%;">
-
-
-
+<p><img src="/2021/11/23/Yapi%E9%83%A8%E7%BD%B2%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/config_page.png" srcset="/img/loading.gif" lazyload alt="配置界面" style="zoom:67%;"></p>
+<p><img src="/2021/11/23/Yapi%E9%83%A8%E7%BD%B2%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/waiting.png" srcset="/img/loading.gif" lazyload alt="提交结果" style="zoom:67%;"></p>
 <p>等待配置时间过长，发现异样，打开cmd检查，果然有错误</p>
 <p>错误日志为：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell">&lt;ref *1&gt; Error: getaddrinfo ENOTFOUND yapi.demo.qunar.com<br>    at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:71:26) &#123;<br>  errno: -3008,<br>  code: &#x27;ENOTFOUND&#x27;,<br>  syscall: &#x27;getaddrinfo&#x27;,<br>  hostname: &#x27;yapi.demo.qunar.com&#x27;,<br></code></pre></td></tr></table></figure>
-
 <p>寻找了一下大佬的方案后，只在一 <a target="_blank" rel="noopener" href="https://github.com/YMFE/yapi/issues/16#issuecomment-751991231">Github issues</a> 中找到了解决流程</p>
 <p>便是接下来的 <strong>命令行部署</strong></p>
-<h3 id="2、命令行部署"><a href="#2、命令行部署" class="headerlink" title="2、命令行部署"></a>2、命令行部署</h3><p>先构建一个项目文件夹 如 <code>D:\Project\Yapi</code></p>
+<h3 id="命令行部署">2、命令行部署</h3>
+<p>先构建一个项目文件夹 如 <code>D:\Project\Yapi</code></p>
 <p>在 <code>yapi</code>中打开 CMD <code>clone</code> yapi 项目</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">git <span class="hljs-built_in">clone</span> https://github.com/YMFE/yapi.git vendors <br></code></pre></td></tr></table></figure>
-
 <p>下载完成后在 <code>yapi</code> 下产生 <code>vendors</code> 文件夹，</p>
 <p><strong>在 <code>yapi</code> 文件夹下创建配置文件，可以通过拷贝 <code>config_example.json</code> 更改文件名于为 <code>config.json</code> 文件内容</strong></p>
 <p><strong>同时删除 <code>vendors</code> 文件夹下的 <code>package-lock.json</code></strong></p>
 <p>config的参考</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs sh">&#123;<br>  <span class="hljs-string">&quot;port&quot;</span>: <span class="hljs-string">&quot;3000&quot;</span>,<br>  <span class="hljs-string">&quot;adminAccount&quot;</span>: <span class="hljs-string">&quot;admin@admin.com&quot;</span>,<br>  <span class="hljs-string">&quot;timeout&quot;</span>:120000,<br>  <span class="hljs-string">&quot;db&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;servername&quot;</span>: <span class="hljs-string">&quot;127.0.0.1&quot;</span>,<br>    <span class="hljs-string">&quot;DATABASE&quot;</span>: <span class="hljs-string">&quot;yapi&quot;</span>,<br>    <span class="hljs-string">&quot;port&quot;</span>: 27017<br>  &#125;,<br>  <span class="hljs-string">&quot;mail&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;enable&quot;</span>: <span class="hljs-literal">false</span>,<br>    <span class="hljs-string">&quot;host&quot;</span>: <span class="hljs-string">&quot;smtp.163.com&quot;</span>,<br>    <span class="hljs-string">&quot;port&quot;</span>: 465,<br>    <span class="hljs-string">&quot;from&quot;</span>: <span class="hljs-string">&quot;***@163.com&quot;</span>,<br>    <span class="hljs-string">&quot;auth&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;user&quot;</span>: <span class="hljs-string">&quot;***@163.com&quot;</span>,<br>      <span class="hljs-string">&quot;pass&quot;</span>: <span class="hljs-string">&quot;*****&quot;</span><br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
 <p>参考 shell 命令为</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh">cp vendors/config_example.json ./config.json // ⚠️  复制完成后把内容修改为 config.json<br><span class="hljs-built_in">cd</span> vendors <br>rm package-lock.json // ⚠️ 一定要删除 package-lock.json <br></code></pre></td></tr></table></figure>
-
 <p>接下来安装依赖，进入 <code>vendors</code> 文件夹，执行</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">npm install --production --registry https://registry.npm.taobao.org <br></code></pre></td></tr></table></figure>
-
-<p> 此时可能会出现报错如 —— 依赖冲突、推荐你使用 –force or –legacy-peer-deps：</p>
-<p>此时我是使用 –force 解决，即：</p>
+<p>此时可能会出现报错如 —— 依赖冲突、推荐你使用 --force or --legacy-peer-deps：</p>
+<p>此时我是使用 --force 解决，即：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">npm install --force --production --registry https://registry.npm.taobao.org<br></code></pre></td></tr></table></figure>
-
-<p>–force 网上的解释是：<a target="_blank" rel="noopener" href="https://www.coder.work/article/7517082">基于最后下载的依赖项，并将覆盖任何以前下载的依赖项</a></p>
+<p>--force 网上的解释是：<a target="_blank" rel="noopener" href="https://www.coder.work/article/7517082">基于最后下载的依赖项，并将覆盖任何以前下载的依赖项</a></p>
 <p>最后运行</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh">npm run install-server <br>node server/app.js <br></code></pre></td></tr></table></figure>
-
-<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>但是使用 <code>node</code> 的启动，关闭cmd之后就会停止服务，这里的解决办法是使用 <a target="_blank" rel="noopener" href="https://pm2.io/">pm2</a></p>
+<h2 id="运行">运行</h2>
+<p>但是使用 <code>node</code> 的启动，关闭cmd之后就会停止服务，这里的解决办法是使用 <a target="_blank" rel="noopener" href="https://pm2.io/">pm2</a></p>
 <p><code>pm2</code> 的操作命令如下 （在 <code>vendors\server</code> 文件夹下运行）</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sh">npm install -g pm2<br>pm2 start app.js        // 启动<br>pm2 start app.js -i max //启动 使用所有CPU核心的集群<br>pm2 stop app.js         // 停止<br>pm2 stop all            // 停止所有<br>pm2 restart app.js      // 重启<br>pm2 restart all         // 重启所有<br>pm2 delete  app.js      // 关闭<br></code></pre></td></tr></table></figure>
-
 
             </div>
             <hr>
@@ -346,6 +333,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2021/12/12/dayu/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Dayu -- Fast and Low-interference Data Recovery in Very-large Storage Systems</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
