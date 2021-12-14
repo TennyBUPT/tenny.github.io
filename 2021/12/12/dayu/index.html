@@ -24,22 +24,22 @@
 <meta property="og:site_name" content="Tenny&#39;s World">
 <meta property="og:description" content="原文链接：[Dayu: Fast and Low-interference Data Recovery in Very-large Storage Systems | USENIX](https:&#x2F;&#x2F;www.usenix.org&#x2F;conference&#x2F;atc19&#x2F;presentation&#x2F;wang-zhufan  摘要 ​ 本文试图在对前台流量干扰最小的情况下，加速大规模存储系统中的数据">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://tennybupt.github.io/2021/12/12/dayu/dayu/dayu_1.png">
-<meta property="og:image" content="https://tennybupt.github.io/2021/12/12/dayu/dayu/dayu_2.png">
-<meta property="og:image" content="https://tennybupt.github.io/2021/12/12/dayu/dayu/dayu_t1.png">
-<meta property="og:image" content="https://tennybupt.github.io/2021/12/12/dayu/dayu/dayu_3.png">
-<meta property="og:image" content="https://tennybupt.github.io/2021/12/12/dayu/dayu/dayu_6.png">
-<meta property="og:image" content="https://tennybupt.github.io/2021/12/12/dayu/dayu/dayu_7.png">
-<meta property="og:image" content="https://tennybupt.github.io/2021/12/12/dayu/dayu/dayu_8.png">
-<meta property="og:image" content="https://tennybupt.github.io/2021/12/12/dayu/dayu/dayu_9.png">
+<meta property="og:image" content="https://tennybupt.github.io/2021/12/12/dayu/dayu_1.png">
+<meta property="og:image" content="https://tennybupt.github.io/2021/12/12/dayu/dayu_2.png">
+<meta property="og:image" content="https://tennybupt.github.io/2021/12/12/dayu/dayu_t1.png">
+<meta property="og:image" content="https://tennybupt.github.io/2021/12/12/dayu/dayu_3.png">
+<meta property="og:image" content="https://tennybupt.github.io/2021/12/12/dayu/dayu_6.png">
+<meta property="og:image" content="https://tennybupt.github.io/2021/12/12/dayu/dayu_7.png">
+<meta property="og:image" content="https://tennybupt.github.io/2021/12/12/dayu/dayu_8.png">
+<meta property="og:image" content="https://tennybupt.github.io/2021/12/12/dayu/dayu_9.png">
 <meta property="article:published_time" content="2021-12-12T09:30:00.000Z">
-<meta property="article:modified_time" content="2021-12-14T07:21:47.097Z">
+<meta property="article:modified_time" content="2021-12-14T07:25:19.307Z">
 <meta property="article:author" content="Tenny">
 <meta property="article:tag" content="论文翻译">
 <meta property="article:tag" content="云">
 <meta property="article:tag" content="数据恢复">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://tennybupt.github.io/2021/12/12/dayu/dayu/dayu_1.png">
+<meta name="twitter:image" content="https://tennybupt.github.io/2021/12/12/dayu/dayu_1.png">
   
   <title>Dayu -- Fast and Low-interference Data Recovery in Very-large Storage Systems - Tenny&#39;s World</title>
 
@@ -257,7 +257,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：几秒前
+                  本文最后更新于：2 分钟前
                 
               </p>
             
@@ -308,7 +308,7 @@ B_{recover}=max(α×B_{total}−B_{foreground},B_{min})
 \]</span> ​ 式中，<span class="math inline">\(B_{total}\)</span> 是节点的总带宽；<span class="math inline">\(B_{foreground}\)</span> 是前台流量的带宽；<span class="math inline">\(α\)</span> 是控制恢复业务对前台业务干扰的参数。我们将 <span class="math inline">\(α\)</span> 设置为75%，我们的实验表明，使用这个设置将对前台流量的p90延迟产生微不足道的影响。作为一个主要为大文件设计的存储系统，盘古的目标不是优化极端的尾部延迟（例如99.9%），所以这个设置可以满足我们的要求，如果一个人的目标是更小的干扰，他/她可以进一步降低<span class="math inline">\(α\)</span>。<span class="math inline">\(B_{min}\)</span> 是节点为恢复分配的最小带宽，这是为了确保恢复不会太慢。盘古和大禹都将<span class="math inline">\(B_{min}\)</span>设置为30MB/s。</p>
 <h3 id="观察">2.2 观察</h3>
 <p>​ 在本小节中，我们分析盘古部署的工作负载和数据放置，以了解它们如何影响数据恢复。我们从大约3500个节点的数据中心获取这些信息，每个节点有两个1G网卡和11个2TB硬盘。此时，硬盘的总带宽将大于网卡的总带宽。存储系统主要提供ODPS （online data processing service，联机数据处理）服务，包括MapReduce和数据查询。我们分析的内容包括：（1）2018年4月一个 MetaServer 的检查点，记录与数据块大小和分布相关的元数据；（2）未来一周前台流量和后台恢复流量的跟踪。除非另有说明，我们的模拟实验在本文中都是在这个3500个节点的集群上进行的。在第5.2节中，我们研究了在3500个节点之外，大禹的可扩展性。</p>
-<p><img src="/2021/12/12/dayu/dayu\dayu_1.png" srcset="/img/loading.gif" lazyload alt="图1：来自一个3500节点的真实系统的观察"></p>
+<p><img src="/2021/12/12/dayu/dayu_1.png" srcset="/img/loading.gif" lazyload alt="图1：来自一个3500节点的真实系统的观察"></p>
 <p>我们通过分析得出以下结论：</p>
 <p>​ <strong>观察1：每个节点存储了数十万块数据</strong></p>
 <p>​ 图1(a) 显示了每个节点上块数量的 CDF。我们可以观察到，大多数节点每个节点大约有250K块。这个观察结果说明了两件事：首先，恢复协议需要安排如何在节点故障时恢复如此多的块。其次，当一个节点发生故障时，剩余的每个节点将平均参与大约70个块的复制（250K/3500）。</p>
@@ -326,8 +326,8 @@ B_{recover}=max(α×B_{total}−B_{foreground},B_{min})
 <p>​ 图1(h) 显示了一个节点的前台流量在5小时内的变化情况。差带宽是两个相邻时隙中平均带宽利用率的差值。我们可以观察到，在95%以上的情况下（在图1(h)中的“p2.5”和“p97.5”之间），绝对增量带宽低于 36MB/s，这是最大带宽的14.4%（由于每个节点有两个 1Gb 网卡，所以为 250mb/s）。然而，在剩下的 5% 的情况下，增量带宽可以达到最大带宽的三分之二。尽管这种极端情况的百分比很小，但它们经常发生在恢复中，因为高度并行的恢复通常涉及许多节点。<strong>仿真结果表明，它们在恢复过程中会产生掉队现象，是恢复速度不理想的主要原因之一。</strong></p>
 <h2 id="大禹的概述">大禹的概述</h2>
 <p>​ 在本文的其余部分中，我们将一个数据块的重新复制称为“恢复任务”。大禹通过引入一个名为 ObServer 的集中调度程序，实现了快速的数据恢复和低应用干扰，该调度程序基于时点进行恢复任务调度。Dayu 假设所有的数据服务器定期向观察者报告他们的数据块放置和网络使用情况，所有的元数据服务器将恢复任务的信息发送给观察者。本文的其余部分给出了 ObServer 的调度算法，该算法决定了恢复任务的源、目的和带宽。为了实现高速、高质量的调度，大禹的关键思想是<strong>分批调度恢复任务</strong>，而不是将所有恢复任务一起调度。这种设计选择有以下几个原因：首先，<strong>每个节点通常涉及数十个恢复任务（由观察一得到）</strong>，多批调度任务仍然允许每个节点充分参与每批任务，从而充分利用其可用带宽；其次，<strong>分批调度任务可以很自然地应对动态的前台流量和罕见的测量误差</strong>，因为大禹在观察到前台流量的任何变化时，都可以在下一批进行调整；最后，<strong>分批调度可以很自然地减少调度算法的计算开销</strong>，因为对于每批，算法只需要调度任务的一个子集。</p>
-<p><img src="/2021/12/12/dayu/dayu\dayu_2.png" srcset="/img/loading.gif" lazyload alt="大禹时效性调度"></p>
-<p><img src="/2021/12/12/dayu/dayu\dayu_t1.png" srcset="/img/loading.gif" lazyload alt="表1：表示"></p>
+<p><img src="/2021/12/12/dayu/dayu_2.png" srcset="/img/loading.gif" lazyload alt="大禹时效性调度"></p>
+<p><img src="/2021/12/12/dayu/dayu_t1.png" srcset="/img/loading.gif" lazyload alt="表1：表示"></p>
 <p>​ 为了实现这个想法，如图2所示，大禹将整个恢复时间划分为多个固定长度的时间片（在本文中称为时隙）。在时隙开始时，obServer收集数据服务器的最新状态。<strong>使用获得的状态，obServer选择并调度该时隙中的恢复任务子集</strong>，包括那些在最后一个时隙中调度但尚未完成的恢复任务。为了充分利用可用带宽，大禹将多个时间段进行重叠，以便在n−1时间段结束前对n号槽位进行信息收集和任务调度。时间段的长度由底层存储系统收集和报告状态的频率决定。如2.1节所述，数据恢复的瓶颈不是终端主机的网卡就是机架交换机的网卡，为了简化描述，本文假设终端主机的网卡是瓶颈，可以很容易地扩展到支持瓶颈机架交换机。表1列出了本文使用的表示法。</p>
 <h3 id="目标">3.1 目标</h3>
 <p>​ 大禹努力实现以下目标</p>
@@ -353,7 +353,7 @@ S=min(∑_{i∈Nodes}B^i_{recover\_in} , ∑_{i∈Nodes}  B^i_{recover\_out}) ×
 <p>​ 如果大禹发现即使是最没有被充分利用的候选也会饱和，大禹就会跳过这个任务。我们需要回答的第一个问题是如何定量地度量节点的利用率。我们已经尝试几个选项,通过模拟,我们决定使用预期的任务完成 <span class="math inline">\(\frac{c_{in/out}}{B_{recover\_in/out}}\)</span> (<span class="math inline">\(c_{in/out}\)</span> 是传入/传出的总大小任务分配给该节点）作为指标来评估一个节点的利用率，因为这个指标达到前两个目标之间的平衡。</p>
 <p>​ 因此，在为任务 t 选择源时，大禹扫描其所有候选节点，并选择 <span class="math inline">\(\frac{s_t+c_{out}}{B_{recover\_out}}\)</span> 最小的节点作为源。这种扫描在计算上并不昂贵，因为大多数块有三个副本，其中一个已经丢失了。之后，Dayu会检查分配任务给源是否会使源饱和，即它的 <span class="math inline">\(\frac{s_t+c_{out}}{B_{recover\_out}} &gt; T_{timeslot}\)</span> ：如果是，Dayu将会丢弃任务t，因为这意味着在这个时间段没有办法完成任务。</p>
 <p>​ 同样，当为任务 t 选择目的地时，大禹选择 <span class="math inline">\(\frac{s_t+c_{in}}{B_{recover\_in}}\)</span> 最小的节点。但是，由于候选目的地的数量很大，简单地扫描所有候选目的地的计算量很大。更糟糕的是，贪心算法不能并行化，因为每次迭代都依赖于前一次迭代的结果。我们在一个3500节点的集群上的模拟表明，简单地扫描每个任务的所有候选目的地的速度只能达到每秒不到30000个任务。根据我们的统计，在一个时间段内，大余通常可以完成6万-15万项任务，这意味着单纯的扫描本身需要2-5秒，这并不理想。为了解决这个问题，我们结合了动态凸包优化来加速计算。</p>
-<p><img src="/2021/12/12/dayu/dayu\dayu_3.png" srcset="/img/loading.gif" lazyload alt="图3：通过动态凸包优化减少计算开销"></p>
+<p><img src="/2021/12/12/dayu/dayu_3.png" srcset="/img/loading.gif" lazyload alt="图3：通过动态凸包优化减少计算开销"></p>
 <p>​ 凸包优化的形式化描述可以参考，这里我们给出了一个直观的描述。对于每个幸存的 <span class="math inline">\(node_i\)</span>，我们在笛卡尔坐标系中绘制一个点<span class="math inline">\((B^i_{recover\_in},c^i_{in})\)</span>，如图3(a)所示。然后，对于大小最大的task，我们在图3(a)中绘制另一个点<span class="math inline">\((0,−s_t)\)</span>。然后，我们从 <span class="math inline">\((0,−s_t)\)</span> 到彼此的点画一条线：由于每条线的斜率为<span class="math inline">\(\frac{c^i_{in}+s_t}{B^i_{recover\_in}}\)</span>，为任务 t 找到目标节点等同于找到斜率最低的线。我们可以保持一个动态凸包来快速搜索斜率最低的直线。在二维空间中，凸壳就像一根橡皮筋，将所有的点紧紧地包裹起来，下面的凸壳就是这个凸壳的下部。</p>
 <p>​ 我们可以保持一个动态凸包来快速搜索斜率最低的直线。在二维空间中，凸壳就像一根橡皮筋，将所有的点紧紧地包裹起来，下面的凸壳就是这个凸壳的下部。我们将下凸壳的点集称为 <span class="math inline">\(H\)</span>（这里我们将 <span class="math inline">\(H\)</span> 中的点连接在一起，形成图3(a)所示的下凸壳）。<span class="math inline">\(H\)</span> 中的点是逆时针连接的。那么对于在集合 <span class="math inline">\(H\)</span> 中有前导点和后继点的点 <span class="math inline">\(p_h\)</span>，直线 <span class="math inline">\(p_{h−1}→p_h\)</span> 的斜率必须小于或等于直线 <span class="math inline">\(p_h→p_{h+1}\)</span> 的斜率。利用二分搜索的时间复杂度为 <span class="math inline">\(O(log|H|)\)</span>，我们可以找到与点 <span class="math inline">\((0, −s_t)\)</span> 的连接斜率最小的节点集 <span class="math inline">\(H\)</span>。</p>
 <p>​ 在大禹分配任务到 <span class="math inline">\(node_i\)</span> 后，它的 <span class="math inline">\(c^i_{in}\)</span> 增加 <span class="math inline">\(s_t\)</span>。因此，大禹需要调整节点 <span class="math inline">\(i\)</span> 的点以及下凸壳 <span class="math inline">\(H\)</span>：当点 <span class="math inline">\(p_h\)</span> 向上移动时，大禹识别原始 <span class="math inline">\(H\)</span> 中 <span class="math inline">\(p_h\)</span> 的前体 <span class="math inline">\(p_{h−1}\)</span> 和后续 <span class="math inline">\(p_{h+1}\)</span>，并扫描它们之间的所有点，以找到 <span class="math inline">\(H\)</span> 的新成员。凸包优化将目标节点的扫描复杂度由线性降低为次线性，且不影响贪心算法的结果。</p>
@@ -433,19 +433,19 @@ F_{interference} = \frac{∑_{i∈Nodes}B^i_{overload}}{∑_{i∈Nodes}B^i_{tota
 <p>​ 从图中可以看出，大余达到了接近最佳的恢复速度，且干扰小。首先，大宇正在接近理想的恢复速度，因为它的恢复时间比“理想”长1.19倍：分别比 Pangu-slow （默认）和 Pangu-mid 配置快2.96倍和1.24倍。与 Pangu-fast 配置相比，虽然大余恢复速度略慢（0.93倍），但对前台流量的干扰要小得多。考虑到恢复流量对前台流量的干扰，大宇的p90延迟仅比“理想”长1.04倍：Pangu-slow对p90延迟的干扰略低，与“理想”几乎相同；Pangu-mid 和 Pangu-fast 的p90延迟比“理想”高4.23-48.14倍，产生了不可接受的干扰。由于 Pangu-mid 和 Pangu-fast 对前台流量的干扰较大，在生产集群中很少使用。综上所述，与盘古不同设置相比，大宇的恢复时间和干扰都接近最优。</p>
 <p><strong>仿真系统的评估</strong></p>
 <p>​ 图6为仿真实验结果。再次，与其他算法相比，大禹在恢复速度和干扰之间取得了很好的平衡。</p>
-<p><img src="/2021/12/12/dayu/dayu\dayu_6.png" srcset="/img/loading.gif" lazyload alt="图6：模拟数据恢复Dayu使用C+W)"></p>
+<p><img src="/2021/12/12/dayu/dayu_6.png" srcset="/img/loading.gif" lazyload alt="图6：模拟数据恢复Dayu使用C+W)"></p>
 <p>​ 在恢复速度方面，大宇将动态凸包节点选择与迭代WSS (C+W）相结合，在所有算法中恢复时间最短，比理想恢复时间长1.14倍。与其他算法相比，动态凸包节点选择算法恢复速度最快，比排名第二的G1算法快1.12倍。需要注意的是，虽然G1在这个实验中接近于Dayu，但由于它的高计算开销，它并不能很好地扩展(§5.2)。对于大余等基于贪心的算法，迭代WSS略快于基于期限的分配，因为迭代WSS可以在任务较少的情况下提前完成最后一个时隙，而迭代WSS必须在最后一个时隙的末尾完成任务。对于基于随机的算法，这种影响是不明确的，因为恢复速度主要取决于源和目的地的选择。</p>
 <p>​ 在前台干扰方面，大宇有可以接受的干扰因子（回忆一下，2%的干扰因子很小，大于6.5%的干扰因子是不能接受的）。在相同的带宽分配策略下，大余的节点选择算法和其他贪心算法的干扰比随机算法略大，因为贪心算法通常会占用更多的估计可用带宽。当对前台流量的估计存在一定误差时，干扰会稍微大一些。在相同的节点选择算法下，迭代WSS始终比基于期限的分配(DA)带来更小的干扰。</p>
 <h3 id="可扩展性">5.2 可扩展性</h3>
 <p>​ 我们评估了大禹超过3500个节点的可扩展性。为了衡量不同算法的全部能力，我们假设有无限多个恢复任务，并模拟每个算法在20个时间段内可以恢复多少数据。由于模拟聚类的规模大于我们观察到的聚类，我们根据收集到的痕迹的统计数据随机生成块放置；我们从一个真实节点随机选取一个模拟节点的前台轨迹。</p>
-<p><img src="/2021/12/12/dayu/dayu\dayu_7.png" srcset="/img/loading.gif" lazyload alt="dayu_7"></p>
+<p><img src="/2021/12/12/dayu/dayu_7.png" srcset="/img/loading.gif" lazyload alt="dayu_7"></p>
 <p>​ 如图7所示，大禹可以扩展到25000个节点，至此，大禹的性能比其他算法都要高。我们不测试更大的规模，因为它们离我们的目标（10K节点）太远了。除了大禹之外，所有随机算法的扩展性都很好，这是意料之中的，尽管它们的性能没有大禹那么好。G1不能扩展到超过5,000个节点，因为它的计算开销很大。需要注意的是，作为贪婪算法，大禹和G2最终会在某一点停止缩放，因为它们的集中计算，但至少对于我们现在和不久的将来的目标规模，仿真表明，大禹足够快，可以提供更好的质量。</p>
 <h3 id="个别技术效果">5.3 个别技术效果</h3>
-<p><img src="/2021/12/12/dayu/dayu\dayu_8.png" srcset="/img/loading.gif" lazyload alt="图8：未充分利用节点优先排序(P)和重新调度掉队的影响(A)"></p>
+<p><img src="/2021/12/12/dayu/dayu_8.png" srcset="/img/loading.gif" lazyload alt="图8：未充分利用节点优先排序(P)和重新调度掉队的影响(A)"></p>
 <p>​ 我们进一步研究了在第4.2和4.4节中描述的未充分利用节点的优先排序(P)和重新调度掉队节点(A)的影响。我们使用带有凸包节点选择(C)和迭代WSS带宽分配(W)的Dayu作为基线(C+W)，扫描没有优先级的任务，并按照原计划执行掉队者(即P和A被禁用)。请注意，在此基线中，Dayu知道这些掉队者，并将使用它们的信息来安排当前时间段，但不会重新安排掉队者。图8显示了Dayu在P和A情况下的调度结果，从图中可以看出，对掉队者的再调度对性能非常敏感:与基线(C+W)相比，对掉队者(C+W+A)的再调度减少了15.6%的恢复时间，同时也减少了干扰。虽然未充分利用的节点的优先级在不重新调度掉队者的情况下效果有限，但当已经配置掉队者重新调度时，它将恢复速度加快7.2%(将“All”与C+W+A的情况进行比较)。</p>
 <h3 id="关键参数的影响">5.4关键参数的影响</h3>
 <p>​ 最后，我们测量了大禹的关键参数的影响。第一个是方程1中的 <span class="math inline">\(α\)</span>，它控制恢复流量对前台流量的干扰。图9(a)绘制了在步长为5%时，<span class="math inline">\(α\)</span> 的恢复时间和干扰因子从65%增加到85%。可以看出，<span class="math inline">\(α\)</span> 越大，恢复时间越短，但干扰因子越大。在这张图中，我们进一步将这些模拟干扰因素映射到现实世界中的p90延迟，以便我们可以定量地了解模拟干扰因素的值。我们决定使用75%的 <span class="math inline">\(α\)</span> 值主要是基于这些p90潜伏期的现实世界的实验：当 <span class="math inline">\(α=75%\)</span> 时，Dayu达到接近最佳的恢复时间和p90潜伏期(§5.1)；当 <span class="math inline">\(α=80%\)</span> 时，尽管Dayu将恢复时间减少了9.1%，但它几乎将前台流量的p90延迟提高了三倍。</p>
-<p><img src="/2021/12/12/dayu/dayu\dayu_9.png" srcset="/img/loading.gif" lazyload alt="dayu_9"></p>
+<p><img src="/2021/12/12/dayu/dayu_9.png" srcset="/img/loading.gif" lazyload alt="dayu_9"></p>
 <p>​ 下一个参数 <span class="math inline">\(β\)</span> 表示在 Section4.2 中选择未充分利用的 ChunkServers 时，从两个排序列表中选择的节点的比例。我们将 <span class="math inline">\(β\)</span> 由0%变为10%，步长为2.5%。如图9(b)所示，<span class="math inline">\(β\)</span> 值对干扰因子的影响不显著，当 <span class="math inline">\(β\)</span> 值为5%时恢复时间最短，这也是大宇将 <span class="math inline">\(β\)</span> 值设为5%的原因。</p>
 <p>​ 另一个重要的参数是时隙的长度(时间间隔)，但由于这个参数影响盘古的总体开销，我们不被允许在生产系统中更改它，因此我们无法记录和分析不同时隙的跟踪。总的来说，更短的时间间隔会让大宇受益，因为它可以更快地对前台波动做出反应，但会增加盘古的开销。</p>
 
